@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us – Royal Dental Hospital</title>
+  <meta name="description" content="Get in touch with Royal Dental Hospital. Book an appointment, ask a question, or find our location. Call +91 92143 65002." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <style>
+    /* ── Contact Page Specific ── */
+    .contact-main {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    /* Info Cards */
+    .contact-info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: var(--transition);
+    }
+    .info-card:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-sm);
+      border-color: rgba(0,174,239,0.3);
+    }
+    .info-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-icon-blue { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+    .info-icon-orange { background: linear-gradient(135deg, var(--secondary), #E05E34); }
+    .info-icon-green { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    .info-icon-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    .info-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .info-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark-text);
+      margin-bottom: 2px;
+    }
+    .info-sub {
+      font-size: 13px;
+      color: var(--light-text);
+      line-height: 1.5;
+    }
+
+    /* Map Embed */
+    .map-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-top: 20px;
+    }
+    .map-wrap iframe {
+      display: block;
+      width: 100%;
+    }
+
+    /* Contact Form */
+    .contact-form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 36px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 100px;
+    }
+    .form-header {
+      margin-bottom: 28px;
+    }
+    .form-header h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 6px;
+    }
+    .form-header p { font-size: 14px; color: var(--light-text); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark-text);
+      margin-bottom: 7px;
+    }
+    .form-group label .req { color: var(--secondary); margin-left: 2px; }
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      color: var(--dark-text);
+      background: var(--bg-light);
+      transition: var(--transition);
+      outline: none;
+    }
+    .form-control::placeholder { color: #A8B5C0; }
+    .form-control:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(0,174,239,0.08);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 110px;
+    }
+    select.form-control { cursor: pointer; }
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+      font-size: 16px;
+      padding: 14px 28px;
+      margin-top: 4px;
+    }
+
+    /* Hours Table */
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 4px;
+    }
+    .hours-table tr td {
+      padding: 8px 0;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hours-table tr:last-child td { border-bottom: none; }
+    .hours-table td:first-child { color: var(--dark-text); font-weight: 500; }
+    .hours-table td:last-child { text-align: right; color: var(--light-text); }
+    .open-now { color: #22c55e !important; font-weight: 600 !important; }
+    .closed { color: #ef4444 !important; }
+
+    /* Emergency Strip */
+    .emergency-strip {
+      background: linear-gradient(135deg, #FF5252, #D32F2F);
+      padding: 20px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .emergency-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .emergency-text strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2px;
+    }
+    .emergency-text span { font-size: 13px; color: rgba(255,255,255,0.85); }
+
+    /* FAQs */
+    .faq-section { background: var(--bg-light); }
+    .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .faq-item:hover { border-color: rgba(0,174,239,0.3); box-shadow: var(--shadow-sm); }
+    .faq-q {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--dark-text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .faq-toggle {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--bg-light);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+      color: var(--primary);
+    }
+    .faq-item.open .faq-toggle { background: var(--primary); color: white; transform: rotate(45deg); }
+    .faq-a {
+      font-size: 14px;
+      color: var(--light-text);
+      line-height: 1.7;
+      padding-top: 12px;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    @media(max-width: 900px) {
+      .contact-main { grid-template-columns: 1fr; }
+      .contact-form-card { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="header" id="site-header">
+    <div class="header-top">
+      <div class="container">
+        <div class="header-top-info">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.17 2.16 2 2 0 012.13 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +91 92143 65002
+        </div>
+        <div class="header-top-info">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Mon–Sat: 10:00 AM – 1:30 PM &nbsp;|&nbsp; 4:00 PM – 9:00 PM
+        </div>
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="container">
+        <a href="index.html" class="logo" id="logo-home">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z"/><path d="M12 8v1M12 15v1M8 12H7M17 12h-1"/></svg>
+          </div>
+          <div class="logo-text">Royal Dental Hospital<span>Premium Dental Care</span></div>
+        </a>
+        <nav class="nav" id="main-nav">
+          <a href="index.html" class="nav-link" id="nav-home">Home</a>
+          <a href="about.html" class="nav-link" id="nav-about">About Us</a>
+          <a href="services.html" class="nav-link" id="nav-services">Services</a>
+          <a href="contact.html" class="nav-link active" id="nav-contact">Contact Us</a>
+          <a href="contact.html" class="nav-link nav-cta" id="nav-book">Book Appointment</a>
+        </nav>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ PAGE HERO ══ -->
+  <section class="page-hero" id="page-hero">
+    <div class="container">
+      <div class="section-badge">Get in Touch</div>
+      <h1>Contact Royal Dental Hospital</h1>
+      <p>We're here to help you. Book an appointment, ask a question, or simply find us on the map.</p>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Contact Us</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT MAIN ══ -->
+  <section class="section-pad" id="contact-section">
+    <div class="container">
+      <div class="contact-main">
+
+        <!-- Left: Info + Map -->
+        <div>
+          <div class="section-badge" style="margin-bottom:18px;">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/></svg>
+            Find Us
+          </div>
+          <h2 class="section-title" style="font-size:26px; margin-bottom:8px;">We'd Love to Hear From You</h2>
+          <p style="font-size:14px; color:var(--light-text); margin-bottom:28px; line-height:1.7;">Reach out through any channel below or drop into our clinic. Our team is ready to welcome you.</p>
+
+          <div class="contact-info-cards reveal">
+            <div class="info-card" id="info-phone">
+              <div class="info-icon info-icon-blue">
+                <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.17 2.16 2 2 0 012.13 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="info-label">Phone</div>
+                <div class="info-value">+91 92143 65002</div>
+                <div class="info-sub">Available during clinic hours</div>
+              </div>
+            </div>
+
+            <div class="info-card" id="info-email">
+              <div class="info-icon info-icon-orange">
+                <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="info-label">Email</div>
+                <div class="info-value">info@royaldental.in</div>
+                <div class="info-sub">We respond within 2 hours</div>
+              </div>
+            </div>
+
+            <div class="info-card" id="info-location">
+              <div class="info-icon info-icon-green">
+                <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="info-label">Address</div>
+                <div class="info-value">Tonk Rd, opposite chaudhary petrol pump</div>
+                <div class="info-sub">Nand Colony, Sanganer, Jaipur, Rajasthan 302029, India</div>
+              </div>
+            </div>
+
+            <div class="info-card" id="info-hours">
+              <div class="info-icon info-icon-purple">
+                <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div style="flex:1;">
+                <div class="info-label">Opening Hours</div>
+                <table class="hours-table">
+                  <tr><td>Monday – Saturday</td><td class="open-now">Open</td></tr>
+                  <tr><td>Morning</td><td>10:00 AM – 1:30 PM</td></tr>
+                  <tr><td>Evening</td><td>4:00 PM – 9:00 PM</td></tr>
+                  <tr><td>Sunday</td><td class="closed">Closed</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emergency -->
+          <div class="emergency-strip reveal">
+            <div class="emergency-icon">
+              <svg width="22" height="22" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+            </div>
+            <div class="emergency-text">
+              <strong>Dental Emergency?</strong>
+              <span>Call us immediately — we provide same-day emergency care: +91 92143 65002</span>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="map-wrap reveal">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.7!2d72.8!3d19.08!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1713000000000"
+              height="260"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Royal Dental Hospital Location">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="contact-form-card reveal reveal-delay-2" id="contact-form-wrap">
+          <div class="form-header">
+            <div class="section-badge" style="margin-bottom:12px;">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+              Book Appointment
+            </div>
+            <h2>Request an Appointment</h2>
+            <p>Fill in the form and our team will confirm your slot within 2 hours.</p>
+          </div>
+
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first-name">First Name <span class="req">*</span></label>
+                <input type="text" id="first-name" name="first_name" class="form-control" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label for="last-name">Last Name <span class="req">*</span></label>
+                <input type="text" id="last-name" name="last_name" class="form-control" placeholder="Doe" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number <span class="req">*</span></label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 XXXXX XXXXX" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="service">Service Required <span class="req">*</span></label>
+              <select id="service" name="service" class="form-control" required>
+                <option value="" disabled selected>Select a service…</option>
+                <option value="general">General Dentistry</option>
+                <option value="cosmetic">Cosmetic Dentistry</option>
+                <option value="implants">Dental Implants</option>
+                <option value="orthodontics">Orthodontics</option>
+                <option value="whitening">Teeth Whitening</option>
+                <option value="cleaning">Teeth Cleaning</option>
+                <option value="emergency">Emergency Care</option>
+                <option value="other">Other / Not Sure</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="appt-date">Preferred Date</label>
+                <input type="date" id="appt-date" name="date" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="appt-time">Preferred Time</label>
+                <select id="appt-time" name="time" class="form-control">
+                  <option value="" disabled selected>Select time…</option>
+                  <option>10:00 AM</option>
+                  <option>11:00 AM</option>
+                  <option>12:00 PM</option>
+                  <option>1:00 PM</option>
+                  <option>4:00 PM</option>
+                  <option>5:00 PM</option>
+                  <option>6:00 PM</option>
+                  <option>7:00 PM</option>
+                  <option>8:00 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Additional Notes</label>
+              <textarea id="message" name="message" class="form-control" placeholder="Describe your concern or any relevant details…"></textarea>
+            </div>
+
+            <div class="form-group" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:22px;">
+              <input type="checkbox" id="consent" name="consent" style="margin-top:3px; accent-color:var(--primary); width:16px; height:16px; cursor:pointer;" required />
+              <label for="consent" style="font-size:13px; color:var(--light-text); cursor:pointer; line-height:1.5;">
+                I agree to be contacted by Royal Dental Hospital regarding my appointment request and dental care.
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit" id="form-submit-btn">
+              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Appointment Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAQs ══ -->
+  <section class="faq-section section-pad" id="faq">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:50px;">
+        <div class="section-badge">FAQ</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle" style="margin:0 auto;">Have a question? We've answered the most common ones below.</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item reveal" id="faq-1">
+          <div class="faq-q">
+            Is the first consultation free?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-a">Yes! Your first consultation is complementary. We'll examine your teeth, answer your questions, and discuss your treatment options at no charge.</div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1" id="faq-2">
+          <div class="faq-q">
+            How do I know which treatment I need?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-a">During your consultation, our dentist will perform a comprehensive examination, review any X-rays, and explain all suitable options clearly — so you can make an informed decision.</div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-2" id="faq-3">
+          <div class="faq-q">
+            Do you treat children?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-a">Absolutely! We have a dedicated pediatric dentistry team that specialises in making children feel at ease. We recommend bringing kids for their first visit by age 3.</div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-3" id="faq-4">
+          <div class="faq-q">
+            How long does a teeth whitening session take?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-a">Our in-office laser whitening takes about 60–90 minutes and can lighten your teeth by up to 8 shades in a single visit.</div>
+        </div>
+
+        <div class="faq-item reveal" id="faq-5">
+          <div class="faq-q">
+            Are dental implants painful?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-a">Most patients experience minimal discomfort during the procedure thanks to local anesthesia. Post-operative soreness is mild and managed with over-the-counter pain relief.</div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1" id="faq-6">
+          <div class="faq-q">
+            Do you offer EMI or payment plans?
+            <div class="faq-toggle">+</div>
+          </div>
+          <div class="faq-a">Yes! We offer flexible EMI options on major treatments including implants, orthodontics, and smile makeovers. Ask our front desk for details.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <div class="footer-logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+            <div class="footer-logo-text">Royal Dental</div>
+          </div>
+          <h4>About Our Clinic</h4>
+          <p>25+ years of trusted, premium dental care. Your smile is our mission.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Facebook"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="#" class="social-link" aria-label="Instagram"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg></a>
+            <a href="#" class="social-link" aria-label="WhatsApp"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Our Services</h4>
+          <nav class="footer-links">
+            <a href="services.html" class="footer-link">General Dentistry</a>
+            <a href="services.html" class="footer-link">Cosmetic Dentistry</a>
+            <a href="services.html" class="footer-link">Dental Implants</a>
+            <a href="services.html" class="footer-link">Orthodontics</a>
+            <a href="services.html" class="footer-link">Teeth Whitening</a>
+            <a href="services.html" class="footer-link">Teeth Cleaning</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <h4>Our Equipments</h4>
+          <nav class="footer-links">
+            <a href="#" class="footer-link">Digital X-Ray</a>
+            <a href="#" class="footer-link">3D CBCT Scanner</a>
+            <a href="#" class="footer-link">Laser Dentistry</a>
+            <a href="#" class="footer-link">Intraoral Camera</a>
+            <a href="#" class="footer-link">Ultrasonic Scaler</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon"><svg width="15" height="15" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <span>Tonk Rd, opposite chaudhary petrol pump, Nand Colony, Sanganer, Jaipur, Rajasthan 302029, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon"><svg width="15" height="15" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07"/></svg></div>
+            <span>+91 92143 65002</span>
+          </div>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon"><svg width="15" height="15" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <span>Mon–Sat: 10 AM – 1:30 PM | 4 PM – 9 PM</span>
+          </div>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon"><svg width="15" height="15" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <span>info@royaldental.in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">© 2024 <span>Royal Dental Hospital</span>. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    /* ── FAQ Accordion ── */
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-q').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>

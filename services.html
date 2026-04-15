@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services – Royal Dental Hospital</title>
+  <meta name="description" content="Explore the full range of dental services at Royal Dental Hospital — General Dentistry, Cosmetic Dentistry, Implants, Orthodontics, Whitening, and more." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <style>
+    /* ── Services Page Specific ── */
+    .service-detail-section { overflow: hidden; }
+    .service-detail-section:nth-child(even) { background: var(--bg-light); }
+
+    .service-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .service-detail.reverse { direction: rtl; }
+    .service-detail.reverse > * { direction: ltr; }
+
+    .service-detail-img {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .service-detail-img img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.5s ease;
+    }
+    .service-detail-img:hover img { transform: scale(1.04); }
+
+    .service-num {
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      box-shadow: 0 8px 24px rgba(0,174,239,0.35);
+    }
+
+    .service-detail-content .section-badge { margin-bottom: 14px; }
+    .service-detail-content h2 {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--dark-text);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+    .service-detail-content p {
+      font-size: 15px;
+      color: var(--light-text);
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+
+    .service-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .service-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--dark-text);
+      line-height: 1.5;
+    }
+    .bullet-dot {
+      width: 22px;
+      height: 22px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .service-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+    .service-tag-pill {
+      font-size: 12px;
+      font-weight: 600;
+      background: #E8F7FD;
+      color: var(--primary);
+      padding: 5px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(0,174,239,0.2);
+    }
+
+    .process-section { background: var(--dark-text); }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .process-step {
+      text-align: center;
+      color: white;
+      padding: 10px;
+    }
+    .process-step-num {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(0,174,239,0.2);
+      border: 2px solid rgba(0,174,239,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 0 auto 16px;
+    }
+    .process-step h3 { font-size: 16px; margin-bottom: 8px; }
+    .process-step p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    .pricing-section { background: var(--bg-light); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .price-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 36px 28px;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--primary);
+      box-shadow: 0 20px 60px rgba(0,174,239,0.15);
+      transform: translateY(-10px);
+    }
+    .price-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .price-card.featured:hover { transform: translateY(-14px); }
+    .price-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 16px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .price-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .price-icon-blue { background: linear-gradient(135deg, #E8F7FD, #C8EEFB); }
+    .price-icon-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+    .price-icon-orange { background: linear-gradient(135deg, #FEF0EB, #FDDDD0); }
+    .price-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--dark-text); }
+    .price-amount {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin: 16px 0 20px;
+    }
+    .price-amount sup { font-size: 18px; vertical-align: super; }
+    .price-amount sub { font-size: 14px; color: var(--light-text); font-weight: 400; }
+    .price-features {
+      list-style: none;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .price-features li {
+      font-size: 14px;
+      padding: 7px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--dark-text);
+      border-bottom: 1px solid var(--bg-light);
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    @media(max-width: 900px) {
+      .service-detail { grid-template-columns: 1fr; gap: 40px; }
+      .service-detail.reverse { direction: ltr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .price-card.featured { transform: translateY(0); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width: 600px) {
+      .process-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="header" id="site-header">
+    <div class="header-top">
+      <div class="container">
+        <div class="header-top-info">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.17 2.16 2 2 0 012.13 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +91 92143 65002
+        </div>
+        <div class="header-top-info">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Mon–Sat: 10:00 AM – 1:30 PM &nbsp;|&nbsp; 4:00 PM – 9:00 PM
+        </div>
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="container">
+        <a href="index.html" class="logo" id="logo-home">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z"/><path d="M12 8v1M12 15v1M8 12H7M17 12h-1"/></svg>
+          </div>
+          <div class="logo-text">Royal Dental Hospital<span>Premium Dental Care</span></div>
+        </a>
+        <nav class="nav" id="main-nav">
+          <a href="index.html" class="nav-link" id="nav-home">Home</a>
+          <a href="about.html" class="nav-link" id="nav-about">About Us</a>
+          <a href="services.html" class="nav-link active" id="nav-services">Services</a>
+          <a href="contact.html" class="nav-link" id="nav-contact">Contact Us</a>
+          <a href="contact.html" class="nav-link nav-cta" id="nav-book">Book Appointment</a>
+        </nav>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ PAGE HERO ══ -->
+  <section class="page-hero" id="page-hero">
+    <div class="container">
+      <div class="section-badge">Dental Services</div>
+      <h1>Comprehensive Dental Care</h1>
+      <p>From routine checkups to advanced cosmetic procedures, we offer a full spectrum of services under one roof.</p>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Services</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICE 1: GENERAL DENTISTRY ══ -->
+  <section class="service-detail-section section-pad" id="general-dentistry">
+    <div class="container">
+      <div class="service-detail">
+        <div class="service-detail-img reveal">
+          <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=85&auto=format&fit=crop" alt="General Dentistry" />
+          <div class="service-num">01</div>
+        </div>
+        <div class="service-detail-content reveal reveal-delay-2">
+          <div class="section-badge">Preventive Care</div>
+          <h2>General Dentistry</h2>
+          <p>Our general dentistry services form the foundation of good oral health. Regular checkups and preventive care help detect issues early, saving you time, discomfort, and expense.</p>
+          <div class="service-bullets">
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Comprehensive oral health examinations
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Tooth-colored composite fillings
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Gentle extractions and emergency care
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Night guards and occlusal splints
+            </div>
+          </div>
+          <div class="service-tags-wrap">
+            <span class="service-tag-pill">Family Friendly</span>
+            <span class="service-tag-pill">Painless Fillings</span>
+            <span class="service-tag-pill">Emergency Care</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" id="gen-cta">Book Appointment <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICE 2: COSMETIC DENTISTRY ══ -->
+  <section class="service-detail-section section-pad" id="cosmetic-dentistry">
+    <div class="container">
+      <div class="service-detail reverse">
+        <div class="service-detail-img reveal reveal-delay-2">
+          <img src="Image/cosmatic dentistry.jpg" alt="Cosmetic Dentistry" />
+          <div class="service-num" style="background:linear-gradient(135deg,var(--secondary),#E05E34);">02</div>
+        </div>
+        <div class="service-detail-content reveal">
+          <div class="section-badge">Aesthetic Care</div>
+          <h2>Cosmetic Dentistry</h2>
+          <p>Transform your smile with our comprehensive cosmetic dental services. We blend artistry with clinical precision to deliver stunning, natural-looking results tailored to your facial aesthetics.</p>
+          <div class="service-bullets">
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Porcelain veneers and dental laminates
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Composite bonding for chips and gaps
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Complete smile makeover packages
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Gum contouring and reshaping
+            </div>
+          </div>
+          <div class="service-tags-wrap">
+            <span class="service-tag-pill">Smile Makeover</span>
+            <span class="service-tag-pill">Veneers</span>
+            <span class="service-tag-pill">Bonding</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" id="cos-cta">Book Appointment <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICE 3: DENTAL IMPLANTS ══ -->
+  <section class="service-detail-section section-pad" id="dental-implants">
+    <div class="container">
+      <div class="service-detail">
+        <div class="service-detail-img reveal">
+          <img src="Image/dental implants.jpg" alt="Dental Implants" />
+          <div class="service-num">03</div>
+        </div>
+        <div class="service-detail-content reveal reveal-delay-2">
+          <div class="section-badge">Restorative Care</div>
+          <h2>Dental Implants</h2>
+          <p>Dental implants are the gold standard for replacing missing teeth. Our board-certified implant surgeons use 3D-guided surgical planning to ensure precision placement and optimal long-term outcomes.</p>
+          <div class="service-bullets">
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Single, multiple, and full-arch implants
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              3D CBCT scan and guided placement
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              All-on-4 and same-day implants
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Lifetime manufacturer warranty
+            </div>
+          </div>
+          <div class="service-tags-wrap">
+            <span class="service-tag-pill">3D Guided</span>
+            <span class="service-tag-pill">All-on-4</span>
+            <span class="service-tag-pill">Same-Day</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" id="imp-cta">Book Consultation <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICE 4: ORTHODONTICS ══ -->
+  <section class="service-detail-section section-pad" id="orthodontics">
+    <div class="container">
+      <div class="service-detail reverse">
+        <div class="service-detail-img reveal reveal-delay-2">
+          <img src="Image/Orthodontics.jpg" alt="Orthodontics" />
+          <div class="service-num" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">04</div>
+        </div>
+        <div class="service-detail-content reveal">
+          <div class="section-badge">Alignment Care</div>
+          <h2>Orthodontics</h2>
+          <p>Straighten your teeth and correct bite issues with our advanced orthodontic solutions. We offer options for children, teens, and adults in a welcoming, supportive environment.</p>
+          <div class="service-bullets">
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Metal, ceramic, and self-ligating braces
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Clear invisible aligner therapy
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Retainers and post-treatment maintenance
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Pediatric orthodontics and early intervention
+            </div>
+          </div>
+          <div class="service-tags-wrap">
+            <span class="service-tag-pill">Clear Aligners</span>
+            <span class="service-tag-pill">Braces</span>
+            <span class="service-tag-pill">Teen-Friendly</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" id="orth-cta">Book Appointment <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICE 5: WHITENING ══ -->
+  <section class="service-detail-section section-pad" id="teeth-whitening">
+    <div class="container">
+      <div class="service-detail">
+        <div class="service-detail-img reveal">
+          <img src="Image/Teeth Whitening.jpg" alt="Teeth Whitening" />
+          <div class="service-num" style="background:linear-gradient(135deg,#F59E0B,#D97706);">05</div>
+        </div>
+        <div class="service-detail-content reveal reveal-delay-2">
+          <div class="section-badge">Brightening</div>
+          <h2>Teeth Whitening</h2>
+          <p>Achieve a noticeably brighter smile safely and quickly with our professional whitening systems. Far superior to over-the-counter products, our treatments deliver dramatic results in as little as one session.</p>
+          <div class="service-bullets">
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              In-office laser whitening (1 hour)
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Custom take-home whitening kits
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Internal bleaching for discolored teeth
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Safe for sensitive teeth with enamel protection
+            </div>
+          </div>
+          <div class="service-tags-wrap">
+            <span class="service-tag-pill">1-Hour Results</span>
+            <span class="service-tag-pill">Laser Whitening</span>
+            <span class="service-tag-pill">Sensitivity Safe</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" id="wh-cta">Book Appointment <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SERVICE 6: CLEANING ══ -->
+  <section class="service-detail-section section-pad" id="teeth-cleaning">
+    <div class="container">
+      <div class="service-detail reverse">
+        <div class="service-detail-img reveal reveal-delay-2">
+          <img src="Image/Teeth Cleaning.jpg" alt="Teeth Cleaning" />
+          <div class="service-num" style="background:linear-gradient(135deg,#22c55e,#16a34a);">06</div>
+        </div>
+        <div class="service-detail-content reveal">
+          <div class="section-badge">Hygiene</div>
+          <h2>Professional Teeth Cleaning</h2>
+          <p>Regular professional cleaning by our dental hygienists removes stubborn plaque and tartar that brushing alone cannot eliminate, protecting your gums and keeping your smile healthy and bright.</p>
+          <div class="service-bullets">
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Ultrasonic scaling and hand scaling
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Polishing and stain removal
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Gum disease assessment and treatment
+            </div>
+            <div class="service-bullet">
+              <div class="bullet-dot"><svg width="11" height="11" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Personalised oral hygiene instruction
+            </div>
+          </div>
+          <div class="service-tags-wrap">
+            <span class="service-tag-pill">Scaling</span>
+            <span class="service-tag-pill">Polishing</span>
+            <span class="service-tag-pill">Gum Health</span>
+          </div>
+          <a href="contact.html" class="btn btn-primary" id="cl-cta">Book Appointment <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ OUR PROCESS ══ -->
+  <section class="process-section section-pad" id="process">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:50px;">
+        <div class="section-badge" style="background:rgba(0,174,239,0.2); color:#7FE0FF; border:1px solid rgba(0,174,239,0.3);">How It Works</div>
+        <h2 class="section-title" style="color:white;">Simple Steps to Your Perfect Smile</h2>
+        <p class="section-subtitle" style="color:rgba(255,255,255,0.65); margin:0 auto;">From your first call to your final treatment, we make every step easy and transparent.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step reveal" id="proc-1">
+          <div class="process-step-num">1</div>
+          <h3>Book Appointment</h3>
+          <p>Call us, fill in our form, or walk in — our friendly team will schedule you at a time that suits.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-1" id="proc-2">
+          <div class="process-step-num">2</div>
+          <h3>Consultation</h3>
+          <p>Your dedicated dentist performs a thorough examination and discusses your goals and options.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2" id="proc-3">
+          <div class="process-step-num">3</div>
+          <h3>Customised Plan</h3>
+          <p>We create a personalised treatment plan with clear timelines and transparent pricing.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3" id="proc-4">
+          <div class="process-step-num">4</div>
+          <h3>Treatment & Follow-Up</h3>
+          <p>Receive your treatment in a comfortable setting with dedicated aftercare and follow-up support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PRICING ══ -->
+  <section class="pricing-section section-pad" id="pricing">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="section-badge">Transparent Pricing</div>
+        <h2 class="section-title">Affordable Care, Premium Quality</h2>
+        <p class="section-subtitle" style="margin:0 auto;">We believe quality dental care should be accessible. All prices include consultation and follow-up.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card reveal" id="price-1">
+          <div class="price-icon price-icon-blue">
+            <svg width="30" height="30" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h3>Basic Care</h3>
+          <div class="price-amount"><sup>₹</sup>599<sub>/visit</sub></div>
+          <ul class="price-features">
+            <li>Oral Examination</li>
+            <li>Professional Cleaning</li>
+            <li>Digital X-Ray</li>
+            <li>Fluoride Treatment</li>
+          </ul>
+          <a href="contact.html" class="btn btn-secondary" style="width:100%; justify-content:center;" id="price-1-btn">Book Now</a>
+        </div>
+
+        <div class="price-card featured reveal reveal-delay-1" id="price-2">
+          <div class="price-badge">Most Popular</div>
+          <div class="price-icon price-icon-primary">
+            <svg width="30" height="30" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h3>Smile Package</h3>
+          <div class="price-amount"><sup>₹</sup>2,999<sub>/plan</sub></div>
+          <ul class="price-features">
+            <li>Everything in Basic</li>
+            <li>Teeth Whitening Session</li>
+            <li>Composite Filling (1 tooth)</li>
+            <li>Orthodontic Assessment</li>
+            <li>Priority Scheduling</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary" style="width:100%; justify-content:center;" id="price-2-btn">Book Now</a>
+        </div>
+
+        <div class="price-card reveal reveal-delay-2" id="price-3">
+          <div class="price-icon price-icon-orange">
+            <svg width="30" height="30" fill="none" stroke="var(--secondary)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <h3>Premium Plan</h3>
+          <div class="price-amount"><sup>₹</sup>7,999<sub>/plan</sub></div>
+          <ul class="price-features">
+            <li>Everything in Smile</li>
+            <li>Dental Implant Consultation</li>
+            <li>3D CBCT Scan</li>
+            <li>Crown or Bridge (1 unit)</li>
+            <li>12-Month Follow-up Care</li>
+          </ul>
+          <a href="contact.html" class="btn btn-secondary" style="width:100%; justify-content:center;" id="price-3-btn">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <div class="footer-logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+            <div class="footer-logo-text">Royal Dental</div>
+          </div>
+          <h4>About Our Clinic</h4>
+          <p>25+ years of trusted, premium dental care for the whole family.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Facebook"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="#" class="social-link" aria-label="Instagram"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Our Services</h4>
+          <nav class="footer-links">
+            <a href="#general-dentistry" class="footer-link">General Dentistry</a>
+            <a href="#cosmetic-dentistry" class="footer-link">Cosmetic Dentistry</a>
+            <a href="#dental-implants" class="footer-link">Dental Implants</a>
+            <a href="#orthodontics" class="footer-link">Orthodontics</a>
+            <a href="#teeth-whitening" class="footer-link">Teeth Whitening</a>
+            <a href="#teeth-cleaning" class="footer-link">Teeth Cleaning</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <h4>Our Equipments</h4>
+          <nav class="footer-links">
+            <a href="#" class="footer-link">Digital X-Ray</a>
+            <a href="#" class="footer-link">3D CBCT Scanner</a>
+            <a href="#" class="footer-link">Laser Dentistry</a>
+            <a href="#" class="footer-link">Intraoral Camera</a>
+            <a href="#" class="footer-link">Ultrasonic Scaler</a>
+          </nav>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon"><svg width="15" height="15" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07"/></svg></div>
+            <span>+91 92143 65002</span>
+          </div>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon"><svg width="15" height="15" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <span>Mon–Sat: 10 AM – 1:30 PM | 4 PM – 9 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">© 2024 <span>Royal Dental Hospital</span>. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
